@@ -24,7 +24,7 @@ for doc in cursor:
 
     if doc["categories"] == None:
         collection.delete_one(doc)
-#         continue
+        continue
 
     if "Food" in doc["categories"] or "Restaurants" in doc["categories"] or "Restaurant" in doc["categories"]:
         continue
