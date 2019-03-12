@@ -14,7 +14,7 @@ client = MongoClient(DB_HOST)
 db = client[DB_NAME]
 collection = db[DB_COLLECTION]
 
-cursor = collection.find({})
+cursor = collection.find(no_cursor_timeout=False)
 
 print("Code started successfully")
 count = 0
