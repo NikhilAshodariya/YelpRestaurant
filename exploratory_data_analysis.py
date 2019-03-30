@@ -28,7 +28,7 @@ def filter_il_reviews():
     with open('./il_reviews_test.csv', 'a') as outfile:
         reviews_df.to_csv(outfile, header=False)
         
-def process_doc():
+def funcTemp(x):
     WNlemma = nltk.WordNetLemmatizer()
     res = []
     ans = []
@@ -58,6 +58,6 @@ if __name__ == "__main__":
     df.drop(["cool","date","funny","useful"],axis = 1,inplace=True)
     processedData = list(df[["business_id","text"]].as_matrix())
     
-    processed_doc = map(process_data, processedData)
+    processed_doc = list(map(funcTemp, processedData))
     
     
