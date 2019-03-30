@@ -7,11 +7,11 @@ from nltk import pos_tag
 import string
 
 def filter_restaurant_businesses(file):
-    f = pd.read_json(file, lines=True)
+    df = pd.read_json(file, lines=True)
     filtered_df = df[(df.categories.str.contains('Restaurants')==True) & (df.state.str.contains('IL')==True)]
     il_business = filtered_df.business_id.to_string(index=False)
     with open('./il_business_ids.txt', 'w') as outfile:
-        outfile.write(az_business)
+        outfile.write(il_business)
 
 def filter_il_reviews():
     df = pd.read_json('reviews_1000000.json', lines=True)
