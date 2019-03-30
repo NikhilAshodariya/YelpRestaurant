@@ -42,6 +42,26 @@ def funcTemp(x):
     ans.append(res)
     return ans
 
+def label_data(path):
+    df = pd.read_csv(path)
+    reviews = df.text
+    
+    food_tags = np.where(df.text.str.contains('food'), 'food', None)
+    cleanliness_tags = np.where(df.text.str.contains('clean|dirty'), 'cleanliness', None)
+    service_tags = np.where(df.text.str.contains('service|waitress|hostess|waiter|worker'), 'service', None)
+    ambience_tags = np.where(df.text.str.contains('ambience|place'), 'ambience', None)
+
+    tags = zip(food_tags, cleanliness_tags, service_tags, ambience_tags)
+    tag_list = list(tags)
+    tag_list = [list(tags) for tags in tag_list]
+    valid_tag_list = []
+    for tags in tag_list:
+        for tag in tags:
+            valid_list = [t for t in tags if t is not None]
+        valid_tag_list.append(valid_list)
+
+    df['tags'] = valid_tag_list
+    return df
 if __name__ == "__main__":
 
     #The dataset has different business entities such as grocery stores, furnitures, plumbing services, etc., 
@@ -52,12 +72,13 @@ if __name__ == "__main__":
     #Filter reviews that belong to the state 'IL'
     filter_il_reviews()
     
+    #Label each review with any or all of the following tags: food, cleanliness, service, ambience
+    path = "./il_reviews.csv"
+    df = label_data(path)
     
     #Pre-process text
-    df = pd.read_csv("./il_reviews.csv")
     df.drop(["cool","date","funny","useful"],axis = 1,inplace=True)
     processedData = list(df[["business_id","text"]].as_matrix())
-    
     processed_doc = list(map(funcTemp, processedData))
     
     
