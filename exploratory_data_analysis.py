@@ -46,9 +46,9 @@ def label_data(path):
     df = pd.read_csv(path)
     reviews = df.text
     
-    food_tags = np.where(df.text.str.contains('food'), 'food', None)
-    cleanliness_tags = np.where(df.text.str.contains('clean|dirty'), 'cleanliness', None)
-    service_tags = np.where(df.text.str.contains('service|waitress|hostess|waiter|worker'), 'service', None)
+    food_tags = np.where(df.text.str.contains('food|vegetables|veggie|veggies|meat|chicken|pho|soup|lunch|dinner|menu|bland|flavor'), 'food', None)
+    cleanliness_tags = np.where(df.text.str.contains('clean|dirty|hygiene'), 'cleanliness', None)
+    service_tags = np.where(df.text.str.contains('service|waitress|hostess|waiter|worker|buffet'), 'service', None)
     ambience_tags = np.where(df.text.str.contains('ambience|place'), 'ambience', None)
 
     tags = zip(food_tags, cleanliness_tags, service_tags, ambience_tags)
