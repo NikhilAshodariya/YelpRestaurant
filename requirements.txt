@@ -1,0 +1,2 @@
+1. conda install -c conda-forge pandas-profiling
+2. conda install -c conda-forge textblob 
