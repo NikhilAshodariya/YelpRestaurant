@@ -1,11 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# ## Initial Data Analysis - Part 2
-
-# In[17]:
-
-
 import numpy as np
 import pandas as pd
 import nltk
@@ -23,59 +15,17 @@ stop_words+=["restaurant", "restaurants", "food", "would", "u", "n't", "ve"]
 from sklearn.feature_extraction.text import CountVectorizer
 from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
 
-
-# In[18]:
-
-
 df = pd.read_csv("data/il_reviews.csv")
 
-
-# In[19]:
-
-
 df.head(2)
-
-
-# In[20]:
-
-
 df.drop(["cool","date","funny","useful"],axis = 1,inplace=True)
-
-
-# In[21]:
-
-
 df.sample()
-
-
-# In[22]:
-
-
 df[["business_id","text"]].as_matrix()[0]
-
-
-# In[23]:
-
 
 processedData = list(df[["business_id","text"]].as_matrix())
 
-
-# In[24]:
-
-
-processedData[6702]
-
-
 # ## Tokenization
-
-# In[26]:
-
-
 WNlemma = nltk.WordNetLemmatizer()
-
-
-# In[27]:
-
 
 def tokenize(x):
     res = []
@@ -95,16 +45,6 @@ def tokenize(x):
     
     return ans
 
-
-# In[28]:
-
-
-map(tokenize,processedData)
-
-
-# In[14]:
-
-
 clean_reviews = list(map(tokenize,processedData))
 clean_text = []
 for x in clean_reviews:
@@ -116,20 +56,12 @@ for x in clean_text:
 # print(token_list)
 # print (stop_words)
 
-
-# - Word cloud with stop words and without lemmatiztion to analyze the top words used in the reviews.
-
-# In[29]:
-
+# Generating a word cloud for more visualization
+# - Word cloud with stop words and with lemmatiztion to analyze the top words used in the reviews.
 
 text = ""
 for x in token_list:
     text = text + " " + x
-# text = str(token_list)  # raw reviews
-
-# Create stopword list:
-stop_words = set(STOPWORDS)
-stop_words.update(["restaurant","restaurants", "food"])
 
 # Generate a word cloud image
 wordcloud = WordCloud(stopwords = stop_words, min_font_size = 10, background_color = "white").generate(text)
@@ -143,10 +75,7 @@ plt.show()
 # Save the image in the img folder:
 # wordcloud.to_file("Images/after_lemmatization.png")
 
-
-# In[31]:
-
-
+# Plotting top 20 words used in the reviews
 cv = CountVectorizer()
 bow = cv.fit_transform(token_list)
 # print (cv.get_feature_names())
@@ -156,10 +85,3 @@ word_counter_df = pd.DataFrame(word_counter.most_common(20), columns = ['word', 
 fig, ax = plt.subplots(figsize=(12, 10))
 sns.barplot(x="word", y="freq", data=word_counter_df, palette="PuBuGn_d", ax=ax)
 plt.show()
-
-
-# In[ ]:
-
-
-
-
