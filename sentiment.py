@@ -11,6 +11,8 @@ from nltk import sent_tokenize
 from nltk import word_tokenize
 from nltk import pos_tag
 import string
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 with open("positive-words.txt",'r') as f:
     positive_words=[line.strip() for line in f]
@@ -81,14 +83,15 @@ def funcTemp(x):
 print(map(funcTemp,processedData))
 
 
-print(list(map(funcTemp,processedData))[0][1])
+list(map(funcTemp,processedData))
 
 
 # In[ ]:
 
-
-
-
+# plotting the sentiment count
+# ax = df.final_review.value_counts().plot.bar(figsize=(6,4), title="Model count by sentiment");  
+# ax.set(xlabel = "sentiment", ylabel = "model count");
+# plt.show()
 
 # In[ ]:
 
